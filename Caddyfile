@@ -1,0 +1,24 @@
+# Caddyfile for TLS termination and reverse proxying (PRD/07 §5, PRD/12 §3)
+# Replace bridge.example.com with your public domain name.
+
+{
+    email admin@example.com
+}
+
+{$DOMAIN:bridge.example.com} {
+    # Public webhook and media host
+    reverse_proxy app:8080 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    # Security headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+}
