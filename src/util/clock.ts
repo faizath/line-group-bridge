@@ -35,7 +35,7 @@ export class ManualClock implements Clock {
   set(d: Date | number): void {
     this.t = typeof d === 'number' ? d : d.getTime();
   }
-  async sleep(): Promise<void> {}
+  async sleep(_ms?: number, _signal?: AbortSignal): Promise<void> {}
 }
 
 export function addMs(d: Date, ms: number): Date {

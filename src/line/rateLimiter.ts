@@ -9,7 +9,7 @@ export interface RateLimiter {
 }
 
 export class NoopRateLimiter implements RateLimiter {
-  async acquire(): Promise<void> {}
+  async acquire(_bucket?: RateBucket): Promise<void> {}
 }
 
 interface BucketSpec {
