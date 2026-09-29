@@ -1,0 +1,117 @@
+import type { Catalog } from './en.js';
+
+export const ja: Catalog = {
+  // Attribution & translation
+  line_user: 'LINEユーザー',
+  member: 'メンバー',
+  edited: '(編集済み)',
+  edited_prefix: '✏️ (編集済み) {author}:',
+  unsent_by: '{author} がメッセージの送信を取り消しました。',
+  location: '位置情報',
+  sticker: '[スタンプ]',
+  snippet_photo: '[写真]',
+  snippet_video: '[動画]',
+  snippet_audio: '[音声]',
+  snippet_file: '[ファイル]',
+  snippet_location: '[位置情報]',
+  snippet_sticker: '[スタンプ]',
+  snippet_message: '[メッセージ]',
+  replying_to: '↩ {author}: {snippet}',
+  photo_unavailable: '[写真を表示できません]',
+  video_unavailable: '[動画を再生できません]',
+  audio_unavailable: '[音声を再生できません]',
+  video_link: '🎬 {author} が動画を送信しました: {url}',
+  audio_link: '🔊 {author} がボイスメッセージを送信しました: {url}',
+  file_link: '📎 {name} ({size})\n{url}',
+  file_not_relayed: '📎 {name} ({size}) — 転送されませんでした',
+  more_photos: '📷 {author} からの写真あと {count} 枚',
+  more_messages: '…他 {count} 件のメッセージ',
+
+  // Commands & administration
+  cmd_no_user: 'コマンドを実行するにはLINEプロフィールの同意が必要です。',
+  cmd_not_bridged: 'このグループはブリッジに接続されていません。{p} create <名前> で新規作成するか、{p} join <コード> で参加してください。',
+  cmd_unknown: '不明なコマンドです。{p} help でコマンド一覧を確認できます。',
+  cmd_denied: 'このコマンドを実行する権限がありません。',
+  cmd_usage: '使い方: {usage}',
+
+  create_exists: 'このグループはすでにブリッジ「{bridge}」に接続されています。変更するには {p} leave を実行してください。',
+  create_policy: 'このチャンネルで新しいブリッジを作成できるのは指定された管理者のみです。',
+  create_ok: 'ブリッジ「{bridge}」を作成しました！このグループはグループ {tag} として接続されました。\n接続用ワンタイムコード: {code} (有効期限 {ttl}時間、{uses}回利用可能)\nBotを別のグループに招待し、{p} join {code} と送信して接続してください。',
+
+  code_ok: '新しい接続コードを発行しました: {code} (有効期限 {ttl}時間、{uses}回利用可能)\nBotを別のグループに招待し、{p} join {code} と入力して接続してください。',
+  join_already: 'このグループはすでにブリッジ「{bridge}」に接続されています。別のブリッジに移動する場合は、まず {p} leave を実行してください。',
+  join_invalid: '無効または有効期限切れの接続コードです。ブリッジ管理者に新しいコードの発行を依頼してください。',
+  join_full: 'ブリッジ「{bridge}」は上限の {max} グループに達しています。',
+  join_ok: 'ブリッジ「{bridge}」にグループ {tag} として参加しました！\n接続中のグループ: {groups}',
+  privacy_line: 'プライバシーポリシー: {url}',
+
+  leave_ok: 'このグループはブリッジ「{bridge}」から切断されました。メッセージの転送は停止しました。',
+  kick_ok: 'Botはブリッジから切断され、このグループを退出します。',
+  rename_ok: 'ブリッジ名を「{bridge}」に変更しました。',
+  tag_ok: 'このグループのタグを [{tag}] に更新しました。',
+  tag_invalid: 'タグは1〜3文字の英数字で、同じブリッジ内で重複しないものを指定してください。',
+
+  mode_immediate_warning: '⚠️ 即時モードはすべてのメッセージを個別にプッシュ配信します。現在のグループ規模では、推定で月間約 {estimate} 通の配信枠を消費します。\n有効にする場合は、次のコマンドを入力してください: {p} mode immediate confirm',
+  mode_ok: '配信モードを {mode} に変更しました。',
+  mode_immediate: '即時モード (Push配信)',
+  mode_batched: 'バッチモード (まとめPush配信)',
+  mode_economy: 'エコノミーモード (無料Reply優先)',
+  mode_strict_economy: '完全エコノミーモード (無料Replyのみ)',
+
+  window_ok: 'バッチ間隔を {seconds} 秒に設定しました。',
+  hold_ok: 'エコノミー保留時間を {minutes} 分に設定しました。',
+  hold_off: 'エコノミー保留時間を解除しました（完全エコノミー：無料Replyでのみ転送）。',
+
+  pause_ok: 'このグループの転送（{direction}）を一時停止しました。',
+  resume_ok: 'このグループのメッセージ転送を再開しました。',
+  pause_both: '送受信',
+  pause_in: '受信',
+  pause_out: '送信',
+
+  target_no_consent: '指定されたユーザーはプロフィール情報の利用に同意していないため、ユーザーIDを取得できません。',
+  mute_need_target: '@メンションするか、対象のメッセージに返信してユーザーを指定してください。',
+  mute_ok: '{user} をブリッジ全体でミュートしました。',
+  unmute_ok: '{user} のミュートを解除しました。',
+
+  role_admin: '管理者',
+  role_moderator: 'モデレーター',
+  role_owner_protected: 'ブリッジのオーナー権限は変更できません。',
+  role_added: '{user} を{role}に追加しました。',
+  role_removed: '{user} を{role}から削除しました。',
+
+  silent_on: '転送通知を無効化しました（サイレント配信）。',
+  silent_off: '転送通知を有効化しました。',
+
+  notices_ok: '{kind} の通知を {state} にしました。',
+  state_on: '有効',
+  state_off: '無効',
+
+  locale_ok: 'ブリッジの言語を {locale} に設定しました。',
+  budget_ok: '月間配信枠を {budget} 通に設定しました。',
+  budget_off: '月間配信枠の上限を解除しました。',
+  style_ok: '送信者タグのスタイルを {style} に設定しました。',
+
+  optout_ok: 'メッセージ転送のオプトアウトが完了しました。あなたのメッセージは他のグループへ転送されません。\n再開するには {p} optin と送信してください。',
+  optin_ok: 'メッセージ転送のオプトインが完了しました。あなたのメッセージは他のグループへ転送されます。',
+
+  help_member: 'コマンド一覧:\n{p} status — ブリッジ情報とグループ一覧の確認\n{p} optout / {p} optin — 自分のメッセージ転送の停止/再開\n{p} help — このヘルプの表示',
+  help_moderator: '\nモデレーターコマンド:\n{p} pause [in|out|both] / {p} resume — 転送の一時停止/再開\n{p} mute @user / {p} unmute @user — ユーザーのミュート/解除',
+  help_admin: '\n管理者コマンド:\n{p} code [回数] [時間] — 接続コードの発行\n{p} leave / {p} kick — グループの切断/Bot退出\n{p} mode <immediate|batched|economy|strict> — 配信モード変更\n{p} window <秒> / {p} hold <分|off> — タイミング調整\n{p} rename <名前> / {p} tag <タグ> — 名前・タグ変更\n{p} admin <add|remove> @user — 管理者の追加/削除\n{p} mod <add|remove> @user — モデレーターの追加/削除\n{p} silent <on|off> — プッシュ通知音の切替\n{p} notices <join|leave|unsend> <on|off> — 通知の切替\n{p} locale <en|ja|th|zh-TW> — 言語切替\n{p} budget <通数|off> — 月間配信上限\n{p} style <none|suffix|prefix> — タグ表示形式',
+
+  status_header: 'ブリッジ: «{bridge}» ({mode}){forced}',
+  status_forced: ' [制限中: {reason}]',
+  status_group: '• [{tag}] {name} ({members} 人){paused}',
+  status_paused: ' [{direction}一時停止中]',
+  status_usage: '今月の利用状況: 約 {billed} 通 (Push: {pushes}回, Reply: {replies}回)',
+  status_budget: '月間配信枠: {budget} 通',
+  status_quota: 'LINE配信枠: {used} / {limit} (今月予測: 約 {projected})',
+  status_quota_unlimited: 'LINE配信数: {used} (無制限)',
+  status_warning: '⚠️ 月間予測が配信枠の {pct}% を超えています！',
+  status_quota_stopped: '🛑 Push配信が停止しています（月間上限到達のため無料Replyのみ転送）',
+
+  notice_group_joined: 'グループ「{group}」がブリッジに参加しました。',
+  notice_group_left: 'グループ「{group}」がブリッジから退出しました。',
+  notice_budget_exhausted: 'お知らせ: 設定された月間配信枠の上限に達したため、完全エコノミーモードに切り替わりました。',
+  notice_quota_strict: 'お知らせ: LINEアカウントの月間配信枠の上限に達したため、完全エコノミーモードに切り替わりました。',
+  onboarding: 'はじめまして！{name} です。複数のLINEグループを連携させ、1つのコミュニティとして会話できるようにします。\n送信されたメッセージは名前とアイコンを付けて他のグループへ転送されます。\nこのグループを接続するには {p} create <名前> または {p} join <コード> を入力してください。\n転送を希望しない場合は {p} optout と入力してください。',
+};

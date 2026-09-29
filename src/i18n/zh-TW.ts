@@ -1,0 +1,117 @@
+import type { Catalog } from './en.js';
+
+export const zhTw: Catalog = {
+  // Attribution & translation
+  line_user: 'LINE用戶',
+  member: '成員',
+  edited: '(已編輯)',
+  edited_prefix: '✏️ (已編輯) {author}:',
+  unsent_by: '{author} 已收回訊息。',
+  location: '位置資訊',
+  sticker: '[貼圖]',
+  snippet_photo: '[照片]',
+  snippet_video: '[影片]',
+  snippet_audio: '[語音]',
+  snippet_file: '[檔案]',
+  snippet_location: '[位置資訊]',
+  snippet_sticker: '[貼圖]',
+  snippet_message: '[訊息]',
+  replying_to: '↩ {author}: {snippet}',
+  photo_unavailable: '[無法顯示照片]',
+  video_unavailable: '[無法播放影片]',
+  audio_unavailable: '[無法播放語音]',
+  video_link: '🎬 {author} 傳送了影片：{url}',
+  audio_link: '🔊 {author} 傳送了語音訊息：{url}',
+  file_link: '📎 {name} ({size})\n{url}',
+  file_not_relayed: '📎 {name} ({size}) — 未轉傳',
+  more_photos: '📷 還有來自 {author} 的 {count} 張照片',
+  more_messages: '…還有 {count} 則訊息',
+
+  // Commands & administration
+  cmd_no_user: '執行指令需要同意 LINE 個人檔案存取權限以確認身分。',
+  cmd_not_bridged: '此群組尚未連接至任何橋接。請使用 {p} create <名稱> 建立新橋接，或使用 {p} join <代碼> 加入現有橋接。',
+  cmd_unknown: '未知的指令。請輸入 {p} help 查看可用指令。',
+  cmd_denied: '您沒有執行此指令的權限。',
+  cmd_usage: '用法：{usage}',
+
+  create_exists: '此群組已連接至橋接「{bridge}」。若要切換請先輸入 {p} leave。',
+  create_policy: '只有指定的操作員可以在此頻道建立新橋接。',
+  create_ok: '橋接「{bridge}」建立成功！此群組已作為群組 {tag} 加入。\n一次性連接代碼：{code} (有效期限 {ttl}小時，可使用 {uses} 次)\n請將 Bot 邀請至其他群組並輸入 {p} join {code} 以進行連接。',
+
+  code_ok: '此橋接的新連接代碼：{code} (有效期限 {ttl}小時，可使用 {uses} 次)\n請將 Bot 邀請至其他群組並輸入 {p} join {code} 以加入。',
+  join_already: '此群組已連接至橋接「{bridge}」。若要切換橋接請先輸入 {p} leave。',
+  join_invalid: '無效或已過期的連接代碼。請向橋接管理員索取新代碼。',
+  join_full: '橋接「{bridge}」已達到上限 {max} 個群組。',
+  join_ok: '已作為群組 {tag} 加入橋接「{bridge}」！\n已連接的群組：{groups}',
+  privacy_line: '隱私權政策：{url}',
+
+  leave_ok: '此群組已脫離橋接「{bridge}」。訊息轉傳已停止。',
+  kick_ok: 'Bot 已中斷連接並即將退出此群組。再見！',
+  rename_ok: '橋接名稱已更新為「{bridge}」。',
+  tag_ok: '此群組的標籤已更新為 [{tag}]。',
+  tag_invalid: '標籤必須是 1–3 個英數字元，且不可與同橋接內的其他群組重複。',
+
+  mode_immediate_warning: '⚠️ 即時模式會為每則訊息個別發送推播。以目前橋接規模估計，每月將消耗約 {estimate} 則推播額度。\n若要確認啟用，請輸入：{p} mode immediate confirm',
+  mode_ok: '傳送模式已更新為 {mode}。',
+  mode_immediate: '即時模式 (個別推播)',
+  mode_batched: '批次模式 (彙整推播)',
+  mode_economy: '經濟模式 (優先使用免費回覆)',
+  mode_strict_economy: '嚴格經濟模式 (僅限免費回覆)',
+
+  window_ok: '批次視窗時間已設定為 {seconds} 秒。',
+  hold_ok: '經濟模式最長保留時間已設定為 {minutes} 分鐘。',
+  hold_off: '已關閉經濟模式保留時間（嚴格經濟模式：僅透過免費回覆轉傳）。',
+
+  pause_ok: '已暫停此群組的轉傳（{direction}）。',
+  resume_ok: '已恢復此群組的訊息轉傳。',
+  pause_both: '傳入與傳出',
+  pause_in: '傳入',
+  pause_out: '傳出',
+
+  target_no_consent: '指定的用戶尚未同意個人檔案存取，因此無法取得其用戶 ID。',
+  mute_need_target: '請透過 @標註 或回覆其訊息來指定用戶。',
+  mute_ok: '已在全橋接靜音 {user}。',
+  unmute_ok: '已解除靜音 {user}。',
+
+  role_admin: '管理員',
+  role_moderator: '版主',
+  role_owner_protected: '無法變更橋接擁有者的身分組。',
+  role_added: '已將 {user} 新增為{role}。',
+  role_removed: '已將 {user} 從{role}移除。',
+
+  silent_on: '已停用轉傳推播通知（無聲訊息）。',
+  silent_off: '已啟用轉傳推播通知。',
+
+  notices_ok: '{kind} 通知現在已 {state}。',
+  state_on: '開啟',
+  state_off: '關閉',
+
+  locale_ok: '橋接語言已設定為 {locale}。',
+  budget_ok: '每月預算上限已設定為 {budget} 則訊息。',
+  budget_off: '已停用每月預算上限。',
+  style_ok: '發送者標籤樣式已設定為 {style}。',
+
+  optout_ok: '您已退出訊息轉傳。您的訊息將不會被轉傳至其他群組。\n輸入 {p} optin 可重新加入。',
+  optin_ok: '您已加入訊息轉傳。您的訊息現在將會被轉傳至其他群組。',
+
+  help_member: '指令列表：\n{p} status — 顯示橋接資訊與群組\n{p} optout / {p} optin — 退出/加入訊息轉傳\n{p} help — 顯示此說明',
+  help_moderator: '\n版主指令：\n{p} pause [in|out|both] / {p} resume — 暫停/恢復轉傳\n{p} mute @user / {p} unmute @user — 靜音/解除靜音成員',
+  help_admin: '\n管理員指令：\n{p} code [次數] [小時] — 產生新連接代碼\n{p} leave / {p} kick — 脫離橋接或退出群組\n{p} mode <immediate|batched|economy|strict> — 傳送模式\n{p} window <秒> / {p} hold <分|off> — 時間調整\n{p} rename <名稱> / {p} tag <標籤> — 更新名稱或標籤\n{p} admin <add|remove> @user — 管理員身分組管理\n{p} mod <add|remove> @user — 版主身分組管理\n{p} silent <on|off> — 靜音推播通知\n{p} notices <join|leave|unsend> <on|off> — 切換通知\n{p} locale <en|ja|th|zh-TW> — 語言切換\n{p} budget <則數|off> — 每月額度上限\n{p} style <none|suffix|prefix> — 標籤樣式',
+
+  status_header: '橋接：«{bridge}» ({mode}){forced}',
+  status_forced: ' [強制限制: {reason}]',
+  status_group: '• [{tag}] {name} ({members} 位成員){paused}',
+  status_paused: ' [{direction}已暫停]',
+  status_usage: '本月累計用量：約 {billed} 則 (推播: {pushes} 次, 回覆: {replies} 次)',
+  status_budget: '每月預算：{budget} 則訊息',
+  status_quota: 'LINE 額度：{used} / {limit} (預估本月: ~{projected})',
+  status_quota_unlimited: 'LINE 額度：已使用 {used} (無上限)',
+  status_warning: '⚠️ 預估用量已超過方案額度的 {pct}%！',
+  status_quota_stopped: '🛑 推播功能目前已暫停（已達每月額度上限；僅能透過免費回覆轉傳）',
+
+  notice_group_joined: '群組「{group}」已加入橋接。',
+  notice_group_left: '群組「{group}」已離開橋接。',
+  notice_budget_exhausted: '通知：已達到設定的每月訊息預算上限。已切換至嚴格經濟模式（僅透過免費回覆轉傳）。',
+  notice_quota_strict: '通知：已達到 LINE 帳號每月額度上限。已切換至嚴格經濟模式（僅透過免費回覆轉傳）。',
+  onboarding: '您好！我是 {name}。我負責連接多個 LINE 群組，讓大家如同在同一個社群中交流。\n在此發送的訊息將附帶您的暱稱與頭像轉傳至已連接的群組。\n若要連接此群組，請輸入 {p} create <名稱> 或 {p} join <代碼>。\n若不希望轉傳您的訊息，請輸入 {p} optout。',
+};

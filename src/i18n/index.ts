@@ -1,10 +1,18 @@
 import type { Locale } from '../config.js';
 import { en, type Catalog, type MessageKey } from './en.js';
+import { ja } from './ja.js';
+import { th } from './th.js';
+import { zhTw } from './zh-TW.js';
 
 export type { MessageKey };
 
-// Locales are registered here; missing ones fall back to English.
-const catalogs: Partial<Record<Locale, Catalog>> = { en };
+// Locales registered per NFR-I18N-1 (en, ja, th, zh-TW); missing keys fall back to English.
+const catalogs: Record<Locale, Catalog> = {
+  en,
+  ja,
+  th,
+  'zh-TW': zhTw,
+};
 
 export type Translate = (key: MessageKey, vars?: Record<string, string | number>) => string;
 
