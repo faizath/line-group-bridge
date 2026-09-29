@@ -7,8 +7,7 @@ import { buildPublicApp } from '../../src/app/app.js';
 import type { AppContext } from '../../src/app/context.js';
 import { Commands } from '../../src/commands/handler.js';
 import { loadConfig } from '../../src/config.js';
-import { attachedGroups, getBridge, registerGroup } from '../../src/core/groups.js';
-import { Scheduler } from '../../src/core/scheduler.js';
+import { attachedGroups, registerGroup } from '../../src/core/groups.js';
 import { QuotaGuard } from '../../src/cost/quotaGuard.js';
 import type { Db } from '../../src/db/db.js';
 import { openDb } from '../../src/db/db.js';
@@ -26,13 +25,11 @@ import { processTask } from '../../src/processor/tasks.js';
 import { claimTasks } from '../../src/core/tasks.js';
 import { StickerPolicy } from '../../src/translate/stickers.js';
 import { ManualClock } from '../../src/util/clock.js';
-import { uuid } from '../../src/util/ids.js';
 import type { FakeLine } from '../fake-line/server.js';
 import { createFakeLine } from '../fake-line/server.js';
 import {
   editEvent,
   imageEvent,
-  postWebhook,
   textEvent,
   unsendEvent,
 } from '../fake-line/webhook.js';
@@ -48,7 +45,6 @@ describe('End-to-End Integration Scenarios (PRD/02 §8, PRD/13 §4)', () => {
   let commands: Commands;
   let lanes: Lanes;
   let processor: EventProcessor;
-  let scheduler: Scheduler;
 
   const secret = 'test-channel-secret-12345';
   const botId = 'Ubot-bridge';
@@ -126,7 +122,6 @@ describe('End-to-End Integration Scenarios (PRD/02 §8, PRD/13 §4)', () => {
     commands = new Commands(ctx, quota);
     lanes = new Lanes(ctx, quota);
     processor = new EventProcessor(ctx, lanes, commands);
-    scheduler = new Scheduler(ctx, processor, lanes, quota);
 
     publicApp = buildPublicApp(ctx);
   });
@@ -206,7 +201,8 @@ describe('End-to-End Integration Scenarios (PRD/02 §8, PRD/13 §4)', () => {
     expect(lastA.messages[0]?.type).toBe('text');
     if (lastA.messages[0]?.type === 'text') {
       expect(lastA.messages[0].text).toBe('anyone going Saturday?');
-      expect(lastA.messages[0].sender?.name).toBe('Ken·B');
+      const sender = lastA.messages[0].sender as { name?: string } | undefined;
+      expect(sender?.name).toBe('Ken·B');
     }
 
     const delC = fakeLine.delivered('G-C');
@@ -215,7 +211,8 @@ describe('End-to-End Integration Scenarios (PRD/02 §8, PRD/13 §4)', () => {
     expect(lastC.messages[0]?.type).toBe('text');
     if (lastC.messages[0]?.type === 'text') {
       expect(lastC.messages[0].text).toBe('anyone going Saturday?');
-      expect(lastC.messages[0].sender?.name).toBe('Ken·B');
+      const sender = lastC.messages[0].sender as { name?: string } | undefined;
+      expect(sender?.name).toBe('Ken·B');
     }
 
     // 4. Verify billing counters: G-A (1 member in fake) + G-C (1 member in fake) = 2

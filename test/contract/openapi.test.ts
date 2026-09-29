@@ -46,7 +46,7 @@ describe('OpenAPI contract validation (NFR-MAINT-1, PRD/13 §1)', () => {
       assertRequiredProperties(ev, 'MessageEvent');
       assertRequiredProperties(ev.message as Record<string, unknown>, 'TextMessageContent');
       expect(ev.type).toBe('message');
-      expect(ev.message.type).toBe('text');
+      expect(ev.message?.type).toBe('text');
     });
 
     it('MessageEvent with image content', () => {
@@ -74,7 +74,7 @@ describe('OpenAPI contract validation (NFR-MAINT-1, PRD/13 §1)', () => {
     });
 
     it('MessageEvent with location content', () => {
-      const ev = locationEvent({ groupId: 'G1', latitude: 35.6, longitude: 139.7 });
+      const ev = locationEvent({ groupId: 'G1', address: 'Tokyo', latitude: 35.6, longitude: 139.7 });
       assertRequiredProperties(ev, 'MessageEvent');
       assertRequiredProperties(ev.message as Record<string, unknown>, 'LocationMessageContent');
     });
@@ -98,9 +98,9 @@ describe('OpenAPI contract validation (NFR-MAINT-1, PRD/13 §1)', () => {
     });
 
     it('JoinEvent & LeaveEvent', () => {
-      const join = joinEvent('G1');
+      const join = joinEvent({ groupId: 'G1' });
       assertRequiredProperties(join, 'JoinEvent');
-      const leave = leaveEvent('G1');
+      const leave = leaveEvent({ groupId: 'G1' });
       assertRequiredProperties(leave, 'LeaveEvent');
     });
 

@@ -10,6 +10,9 @@ import { openDb } from '../../src/db/db.js';
 import { migrate } from '../../src/db/migrate.js';
 import type { LinePlatform } from '../../src/line/adapter.js';
 import { createLogger } from '../../src/logger.js';
+import type { MediaService, MediaStore } from '../../src/media/types.js';
+import { Metrics } from '../../src/metrics.js';
+import type { StickerPolicy } from '../../src/translate/stickers.js';
 import { ManualClock } from '../../src/util/clock.js';
 import { uuid } from '../../src/util/ids.js';
 
@@ -55,10 +58,10 @@ describe('Cost and QuotaGuard (FR-COST, [06])', () => {
       clock,
       log: createLogger('silent'),
       line: lineStub as LinePlatform,
-      media: {} as unknown as import('../../src/media/types.js').MediaService,
-      store: {} as unknown as import('../../src/media/types.js').MediaStore,
-      stickers: {} as unknown as import('../../src/translate/stickers.js').StickerPolicy,
-      metrics: new (await import('../../src/metrics.js')).Metrics(),
+      media: {} as unknown as MediaService,
+      store: {} as unknown as MediaStore,
+      stickers: {} as unknown as StickerPolicy,
+      metrics: new Metrics(),
       tokens: null,
       instanceId: 'cost-inst',
       bot: { userId: 'Ubot' },
