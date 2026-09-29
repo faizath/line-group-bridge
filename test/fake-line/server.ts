@@ -125,6 +125,7 @@ export interface FakeLine {
   registerReplyToken(token: string, groupId: string): void;
   registerQuoteToken(token: string, groupId: string): void;
   delivered(groupId: string): Delivery[];
+  clearDeliveries(): void;
   /** Signs and posts a webhook to `webhookUrl`; returns the HTTP status. */
   emit(events: LineEvent[], opts?: { redelivery?: boolean }): Promise<number>;
 }
@@ -809,6 +810,10 @@ export async function createFakeLine(opts: FakeLineOptions = {}): Promise<FakeLi
     },
     delivered(groupId) {
       return deliveries.get(groupId) ?? [];
+    },
+    clearDeliveries() {
+      deliveries.clear();
+      requests.length = 0;
     },
     async emit(events, emitOpts = {}) {
       if (!opts.webhookUrl) throw new Error('fake-line: emit() needs the webhookUrl option');

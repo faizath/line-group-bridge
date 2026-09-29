@@ -255,4 +255,41 @@ describe('Lanes delivery engine', () => {
     expect(jobs[0]?.fallback_step).toBe(4);
     expect(jobs[0]?.state).toBe('dead');
   });
+
+  it('dead-letters job on fatal non-retryable 403 error', async () => {
+    await createOriginAndJob('msg-lane-fatal', 'fatal error test');
+    injectPushError = new LineApiError('Forbidden', 403, '/v2/bot/message/push');
+
+    await lanes.processLane('G-T2');
+
+    const { rows: jobs } = await db.query('select * from relay_jobs where origin_message_id = $1', ['msg-lane-fatal']);
+    expect(jobs[0]?.state).toBe('dead');
+  });
+
+  it('settles ambiguous reply after crash without duplicate sends', async () => {
+    await createOriginAndJob('msg-lane-ambig', 'ambiguous reply test');
+    const reqId = uuid();
+    const now = clock.now();
+
+    // Simulate request was sending via reply and crashed (lease expired)
+    await db.query(
+      `insert into outbound_requests (id, target_group_id, bridge_id, method, body, parts, state, next_attempt_at, lease_until)
+       values ($1, 'G-T2', $2, 'reply', '{"messages":[]}'::jsonb, '[]'::jsonb, 'sending', $3, $4)`,
+      [reqId, bridgeId, now, new Date(now.getTime() - 1000)],
+    );
+    await db.query(
+      `update relay_jobs set state = 'sending', request_id = $2 where origin_message_id = $1`,
+      ['msg-lane-ambig', reqId],
+    );
+
+    // Lane recovery settles it as delivered with ambiguous_reply note
+    await lanes.processLane('G-T2');
+
+    const { rows: reqs } = await db.query('select * from outbound_requests where id = $1', [reqId]);
+    expect(reqs[0]?.state).toBe('done');
+
+    const { rows: jobs } = await db.query('select * from relay_jobs where origin_message_id = $1', ['msg-lane-ambig']);
+    expect(jobs[0]?.state).toBe('delivered');
+    expect(jobs[0]?.delivered_via).toBe('reply');
+  });
 });
