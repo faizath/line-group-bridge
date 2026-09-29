@@ -34,7 +34,7 @@ import {
   unsendEvent,
 } from '../fake-line/webhook.js';
 
-describe('End-to-End Integration Scenarios (PRD/02 §8, PRD/13 §4)', () => {
+describe('End-to-End Integration Scenarios', () => {
   let tmpDir: string;
   let db: Db;
   let clock: ManualClock;

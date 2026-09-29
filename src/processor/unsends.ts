@@ -36,7 +36,7 @@ export async function handleUnsend(ctx: AppContext, ev: LineEvent): Promise<Unse
       [messageId],
     );
 
-    // 3. Scrub text from inbound event payloads for privacy compliance (NFR-PRIV-2, PRD/11 §3.3)
+    // 3. Scrub text from inbound event payloads for privacy compliance (NFR-PRIV-2).
     await q.query(
       `update inbound_events set payload = jsonb_set(payload, '{message,text}', 'null'::jsonb)
        where payload->'message'->>'id' = $1`,

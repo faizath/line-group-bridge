@@ -30,7 +30,7 @@ interface SchemaDoc {
 const webhookDoc = yaml.parse(readFileSync('test/fixtures/openapi/webhook.yml', 'utf8')) as SchemaDoc;
 const messagingDoc = yaml.parse(readFileSync('test/fixtures/openapi/messaging-api.yml', 'utf8')) as SchemaDoc;
 
-describe('OpenAPI contract validation (NFR-MAINT-1, PRD/13 §1)', () => {
+describe('OpenAPI contract validation (NFR-MAINT-1)', () => {
   describe('webhook fixtures match webhook.yml', () => {
     function assertRequiredProperties(obj: Record<string, unknown>, schemaName: string) {
       const schema = webhookDoc.components.schemas[schemaName];
