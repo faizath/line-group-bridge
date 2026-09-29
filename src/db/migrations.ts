@@ -143,6 +143,7 @@ create table origin_messages (
   relayed         bool not null default true,
   media_state     text not null default 'none' check (media_state in ('none','pending','ready','failed')),
   image_set_id    text,
+  edit_count      int not null default 0,
   edited_at       timestamptz,
   unsent_at       timestamptz,
   purged_at       timestamptz,
@@ -192,10 +193,12 @@ create table relay_jobs (
   retry_key_first_used_at timestamptz,
   delivered_via   text,
   delivered_at    timestamptz,
+  fallback_step   int not null default 0,
   attempts        int not null default 0,
   last_error      text,
   created_at      timestamptz not null default now(),
-  unique (origin_message_id, target_group_id, kind)
+  seq             int not null default 0,
+  unique (origin_message_id, target_group_id, kind, seq)
 );
 create index relay_jobs_lane on relay_jobs (target_group_id, state, order_ts, order_idx);
 create index relay_jobs_origin on relay_jobs (origin_message_id);

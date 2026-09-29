@@ -66,7 +66,8 @@ class PgliteDb implements Db {
 
   async query<T>(sql: string, params: unknown[] = []): Promise<QueryResult<T>> {
     const r = await this.lite.query<T>(sql, params);
-    return { rows: r.rows, rowCount: r.affectedRows ?? r.rows.length };
+    const rowCount = r.rows.length > 0 ? r.rows.length : (r.affectedRows ?? 0);
+    return { rows: r.rows, rowCount };
   }
 
   tx<T>(fn: (q: Queryable) => Promise<T>): Promise<T> {
@@ -74,7 +75,8 @@ class PgliteDb implements Db {
       fn({
         async query<R>(sql: string, params: unknown[] = []) {
           const r = await tx.query<R>(sql, params);
-          return { rows: r.rows, rowCount: r.affectedRows ?? r.rows.length };
+          const rowCount = r.rows.length > 0 ? r.rows.length : (r.affectedRows ?? 0);
+          return { rows: r.rows, rowCount };
         },
       }),
     );
