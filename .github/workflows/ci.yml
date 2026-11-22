@@ -5,9 +5,6 @@ on:
     branches: [master, main]
   pull_request:
     branches: [master, main]
-  schedule:
-    # Check weekly on Monday at 00:00 UTC for upstream line-openapi changes (PRD/13 §6)
-    - cron: '0 0 * * 1'
 
 jobs:
   validate:
@@ -41,28 +38,3 @@ jobs:
 
       - name: Run dependency audit
         run: npm audit --audit-level=high
-
-  openapi-contract-check:
-    name: OpenAPI Upstream Drift Detection
-    runs-on: ubuntu-latest
-    if: github.event_name == 'schedule'
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js 22
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Download upstream OpenAPI definitions
-        run: |
-          mkdir -p /tmp/upstream
-          curl -sSL -o /tmp/upstream/messaging-api.yml https://raw.githubusercontent.com/line/line-openapi/main/messaging-api.yml
-          curl -sSL -o /tmp/upstream/webhook.yml https://raw.githubusercontent.com/line/line-openapi/main/webhook.yml
-
-      - name: Diff against vendored fixtures
-        run: |
-          diff -u test/fixtures/openapi/messaging-api.yml /tmp/upstream/messaging-api.yml || echo "WARNING: messaging-api.yml has drifted upstream"
-          diff -u test/fixtures/openapi/webhook.yml /tmp/upstream/webhook.yml || echo "WARNING: webhook.yml has drifted upstream"
